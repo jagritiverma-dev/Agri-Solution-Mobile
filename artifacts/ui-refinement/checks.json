@@ -1,0 +1,190 @@
+{
+  "passed": true,
+  "report": [
+    {
+      "language": "hi",
+      "width": 320,
+      "tabs": [
+        {
+          "text": "\n\nहोम",
+          "x": 0,
+          "y": 732,
+          "right": 64,
+          "bottom": 790,
+          "height": 58
+        },
+        {
+          "text": "\n\nफसलें",
+          "x": 64,
+          "y": 732,
+          "right": 128,
+          "bottom": 790,
+          "height": 58
+        },
+        {
+          "text": "\n\nमौसम",
+          "x": 128,
+          "y": 732,
+          "right": 192,
+          "bottom": 790,
+          "height": 58
+        },
+        {
+          "text": "\n\nप्रोफाइल",
+          "x": 192,
+          "y": 732,
+          "right": 256,
+          "bottom": 790,
+          "height": 58
+        },
+        {
+          "text": "\n\nसेटिंग्स",
+          "x": 256,
+          "y": 732,
+          "right": 320,
+          "bottom": 790,
+          "height": 58
+        }
+      ]
+    },
+    {
+      "language": "hi",
+      "width": 390,
+      "tabs": [
+        {
+          "text": "\n\nहोम",
+          "x": 0,
+          "y": 732,
+          "right": 78,
+          "bottom": 790,
+          "height": 58
+        },
+        {
+          "text": "\n\nफसलें",
+          "x": 78,
+          "y": 732,
+          "right": 156,
+          "bottom": 790,
+          "height": 58
+        },
+        {
+          "text": "\n\nमौसम",
+          "x": 156,
+          "y": 732,
+          "right": 234,
+          "bottom": 790,
+          "height": 58
+        },
+        {
+          "text": "\n\nप्रोफाइल",
+          "x": 234,
+          "y": 732,
+          "right": 312,
+          "bottom": 790,
+          "height": 58
+        },
+        {
+          "text": "\n\nसेटिंग्स",
+          "x": 312,
+          "y": 732,
+          "right": 390,
+          "bottom": 790,
+          "height": 58
+        }
+      ]
+    },
+    {
+      "language": "en",
+      "width": 320,
+      "tabs": [
+        {
+          "text": "\n\nHome",
+          "x": 0,
+          "y": 732,
+          "right": 64,
+          "bottom": 790,
+          "height": 58
+        },
+        {
+          "text": "\n\nCrops",
+          "x": 64,
+          "y": 732,
+          "right": 128,
+          "bottom": 790,
+          "height": 58
+        },
+        {
+          "text": "\n\nWeather",
+          "x": 128,
+          "y": 732,
+          "right": 192,
+          "bottom": 790,
+          "height": 58
+        },
+        {
+          "text": "\n\nProfile",
+          "x": 192,
+          "y": 732,
+          "right": 256,
+          "bottom": 790,
+          "height": 58
+        },
+        {
+          "text": "\n\nSettings",
+          "x": 256,
+          "y": 732,
+          "right": 320,
+          "bottom": 790,
+          "height": 58
+        }
+      ]
+    },
+    {
+      "language": "en",
+      "width": 390,
+      "tabs": [
+        {
+          "text": "\n\nHome",
+          "x": 0,
+          "y": 732,
+          "right": 78,
+          "bottom": 790,
+          "height": 58
+        },
+        {
+          "text": "\n\nCrops",
+          "x": 78,
+          "y": 732,
+          "right": 156,
+          "bottom": 790,
+          "height": 58
+        },
+        {
+          "text": "\n\nWeather",
+          "x": 156,
+          "y": 732,
+          "right": 234,
+          "bottom": 790,
+          "height": 58
+        },
+        {
+          "text": "\n\nProfile",
+          "x": 234,
+          "y": 732,
+          "right": 312,
+          "bottom": 790,
+          "height": 58
+        },
+        {
+          "text": "\n\nSettings",
+          "x": 312,
+          "y": 732,
+          "right": 390,
+          "bottom": 790,
+          "height": 58
+        }
+      ]
+    }
+  ],
+  "runtimeExceptions": []
+}

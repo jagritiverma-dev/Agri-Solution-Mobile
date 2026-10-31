@@ -1,0 +1,27 @@
+{
+  "passed": true,
+  "screens": [
+    "msp",
+    "mandi",
+    "dealers",
+    "inputs",
+    "calculator",
+    "centres",
+    "comparison",
+    "alerts"
+  ],
+  "languages": [
+    "hi",
+    "en"
+  ],
+  "width": 320,
+  "calculatorOffline": true,
+  "preferenceOfflineAndRestored": true,
+  "noExternalDataRequests": true,
+  "existingRoutesChecked": [
+    "crops",
+    "schemes",
+    "settings",
+    "crop-doctor"
+  ]
+}

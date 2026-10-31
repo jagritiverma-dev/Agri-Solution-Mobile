@@ -1,0 +1,432 @@
+import { usePortal } from "../hooks/PortalProvider";
+import { useState } from "react";
+import { Share } from "react-native";
+import { ContentScreen } from "../components/ContentScreen";
+import {
+  Button,
+  Card,
+  Chips,
+  Copy,
+  Feedback,
+  Field,
+  Listen,
+  openLink,
+} from "../components/ui";
+export default function Notices() {
+  const { t } = usePortal();
+  const [query, setQuery] = useState("");
+  const [category, setCategory] = useState("All");
+  const [error, setError] = useState("");
+  return (
+    <ContentScreen>
+      {(content) => {
+        const notices = content.notices.filter(
+          (n) =>
+            `${n.title} ${n.summary}`
+              .toLowerCase()
+              .includes(query.toLowerCase()) &&
+            (category === "All" || n.category === category),
+        );
+        return (
+          <>
+            <Copy title>Notice board</Copy>
+            <Copy muted>
+              Portal notices. Open the official source to confirm the latest
+              information.
+            </Copy>
+            <Field
+              label="Search notices"
+              value={query}
+              onChangeText={setQuery}
+            />
+            <Chips
+              options={[
+                "All",
+                ...new Set(content.notices.map((n) => n.category)),
+              ]}
+              value={category}
+              onChange={setCategory}
+            />
+            <Feedback error={error} />
+            {!notices.length && <Copy>No notices match your search.</Copy>}
+            {notices.map((n, i) => (
+              <Card key={n.id} tone={i % 2 ? "blue" : "amber"}>
+                <Copy muted>{`${t(n.category)} · ${t(n.dateLabel)}`}</Copy>
+                <Copy title>{n.title}</Copy>
+                <Copy>{n.summary}</Copy>
+                <Copy muted>{n.sourceName}</Copy>
+                <Button
+                  label="Open official source"
+                  onPress={() => openLink(n.sourceUrl)}
+                />
+                <Listen text={`${t(n.title)}. ${t(n.summary)}`} />
+                <Button
+                  secondary
+                  label="Share notice"
+                  onPress={async () => {
+                    try {
+                      await Share.share({
+                        message: `${t(n.title)}\n${t(n.summary)}\n${n.sourceUrl}`,
+                      });
+                    } catch {
+                      setError("Unable to share notice.");
+                    }
+                  }}
+                />
+              </Card>
+            ))}
+          </>
+        );
+      }}
+    </ContentScreen>
+  );
+}
+
+
+
+
+
+////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import { useMemo, useState } from "react";
+import { Share } from "react-native";
+
+import { usePortal } from "../hooks/PortalProvider";
+import { ContentScreen } from "../components/ContentScreen";
+import { noticeBoardData } from "../data/noticeBoardData";
+
+import {
+  Button,
+  Card,
+  Chips,
+  Copy,
+  Feedback,
+  Field,
+  Listen,
+  openLink,
+} from "../components/ui";
+
+// Additional optional fields supported by the Notice Board.
+// Existing notices can continue using their original structure.
+type NoticeItem = {
+  id: string;
+  title: string;
+  title_hi?: string;
+  summary: string;
+  summary_hi?: string;
+  category: string;
+  dateLabel?: string;
+  publishedDate?: string;
+  sourceName?: string;
+  sourceUrl?: string;
+  department?: string;
+  fullDetails?: string;
+  fullDetails_hi?: string;
+  officialRefNo?: string;
+  officialPortalUrl?: string;
+  pdfUrl?: string;
+  pdfFileName?: string;
+  isPinned?: boolean;
+  isUrgent?: boolean;
+};
+
+const CATEGORIES = [
+  "All",
+  "e-KYC & Accounts",
+  "Installments",
+  "Procurement",
+  "Schemes",
+  "Advisory",
+];
+
+function formatDate(date?: string): string {
+  if (!date) return "";
+
+  const parsed = new Date(date);
+
+  if (Number.isNaN(parsed.getTime())) {
+    return date;
+  }
+
+  return parsed.toLocaleDateString("en-IN", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  });
+}
+
+export default function Notices() {
+  const { t, language } = usePortal();
+
+  const [query, setQuery] = useState("");
+  const [category, setCategory] = useState("All");
+  const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [error, setError] = useState("");
+
+  const isHindi = language === "hi";
+
+  const label = (english: string, hindi: string) => (isHindi ? hindi : english);
+
+  const handleShare = async (notice: NoticeItem) => {
+    try {
+      setError("");
+
+      const title = isHindi && notice.title_hi ? notice.title_hi : notice.title;
+
+      const summary =
+        isHindi && notice.summary_hi ? notice.summary_hi : notice.summary;
+
+      const url = notice.officialPortalUrl || notice.sourceUrl || "";
+
+      await Share.share({
+        message: [
+          title,
+          summary,
+          notice.officialRefNo ? `Ref: ${notice.officialRefNo}` : "",
+          url,
+        ]
+          .filter(Boolean)
+          .join("\n\n"),
+      });
+    } catch {
+      setError(label("Unable to share notice.", "सूचना साझा नहीं हो सकी।"));
+    }
+  };
+
+  return (
+    <ContentScreen>
+      {(content) => {
+        const allNotices: NoticeItem[] = [
+          ...((content.notices || []) as NoticeItem[]),
+          ...noticeBoardData
+            .filter((notice) => notice.verified)
+            .map((notice) => ({
+              ...notice,
+              dateLabel: notice.publishedDate,
+              sourceName: notice.department,
+              sourceUrl: notice.officialPortalUrl,
+            })),
+        ];
+
+        const notices = allNotices
+          .filter((notice) => {
+            const searchText = [
+              notice.title,
+              notice.title_hi,
+              notice.summary,
+              notice.summary_hi,
+              notice.officialRefNo,
+              notice.department,
+              notice.sourceName,
+            ]
+              .filter(Boolean)
+              .join(" ")
+              .toLowerCase();
+
+            const matchesSearch = searchText.includes(
+              query.trim().toLowerCase(),
+            );
+
+            const matchesCategory =
+              category === "All" || notice.category === category;
+
+            return matchesSearch && matchesCategory;
+          })
+          .sort((a, b) => {
+            if (a.isPinned !== b.isPinned) {
+              return a.isPinned ? -1 : 1;
+            }
+
+            const dateA = a.publishedDate ? Date.parse(a.publishedDate) : 0;
+
+            const dateB = b.publishedDate ? Date.parse(b.publishedDate) : 0;
+
+            return (
+              (Number.isFinite(dateB) ? dateB : 0) -
+              (Number.isFinite(dateA) ? dateA : 0)
+            );
+          });
+
+        return (
+          <>
+            {/* Page heading */}
+            <Copy title>{label("Notice Board", "सूचना पट्ट")}</Copy>
+
+            <Copy muted>
+              {label(
+                "Government notices and important agricultural updates.",
+                "सरकारी सूचनाएं और खेती से जुड़ी महत्वपूर्ण जानकारी।",
+              )}
+            </Copy>
+
+            {/* Search */}
+            <Field
+              label={label("Search notices", "सूचना खोजें")}
+              value={query}
+              onChangeText={setQuery}
+            />
+
+            {/* Category filters */}
+            <Chips
+              options={CATEGORIES.filter(
+                (item) =>
+                  item === "All" ||
+                  allNotices.some((notice) => notice.category === item),
+              )}
+              value={category}
+              onChange={setCategory}
+            />
+
+            <Feedback error={error} />
+
+            {/* Empty state */}
+            {notices.length === 0 && (
+              <Card>
+                <Copy title>
+                  {label("No notices found", "कोई सूचना नहीं मिली")}
+                </Copy>
+
+                <Copy muted>
+                  {label(
+                    "Try another category or search term.",
+                    "दूसरी श्रेणी या शब्द से खोजें।",
+                  )}
+                </Copy>
+              </Card>
+            )}
+
+            {/* Notice cards */}
+            {notices.map((notice, index) => {
+              const expanded = expandedId === notice.id;
+
+              const title =
+                isHindi && notice.title_hi ? notice.title_hi : t(notice.title);
+
+              const summary =
+                isHindi && notice.summary_hi
+                  ? notice.summary_hi
+                  : t(notice.summary);
+
+              const details =
+                isHindi && notice.fullDetails_hi
+                  ? notice.fullDetails_hi
+                  : notice.fullDetails;
+
+              const sourceUrl = notice.officialPortalUrl || notice.sourceUrl;
+
+              const date = notice.publishedDate
+                ? formatDate(notice.publishedDate)
+                : notice.dateLabel
+                  ? t(notice.dateLabel)
+                  : "";
+
+              return (
+                <Card key={notice.id} tone={index % 2 ? "blue" : "amber"}>
+                  {/* Category */}
+                  <Copy muted>{t(notice.category)}</Copy>
+
+                  {/* Pinned / urgent status */}
+                  {notice.isPinned && (
+                    <Copy>📌 {label("Pinned", "महत्वपूर्ण सूचना")}</Copy>
+                  )}
+
+                  {notice.isUrgent && (
+                    <Copy>⚠️ {label("Urgent", "अति आवश्यक")}</Copy>
+                  )}
+
+                  {/* Department */}
+                  {!!(notice.department || notice.sourceName) && (
+                    <Copy muted>{notice.department || notice.sourceName}</Copy>
+                  )}
+
+                  {/* Publication date */}
+                  {!!date && <Copy muted>📅 {date}</Copy>}
+
+                  {/* Notice title */}
+                  <Copy title>{title}</Copy>
+
+                  {/* Summary */}
+                  <Copy>{summary}</Copy>
+
+                  {/* Official reference */}
+                  {!!notice.officialRefNo && (
+                    <Copy muted>Ref: {notice.officialRefNo}</Copy>
+                  )}
+
+                  {/* Expand full notice */}
+                  {!!details && (
+                    <Button
+                      label={
+                        expanded
+                          ? label("Hide Details", "विवरण छिपाएं")
+                          : label("See Notice", "पूरी सूचना देखें")
+                      }
+                      onPress={() => setExpandedId(expanded ? null : notice.id)}
+                    />
+                  )}
+
+                  {expanded && !!details && (
+                    <>
+                      <Copy title>
+                        {label("Complete Notice", "पूरी सूचना")}
+                      </Copy>
+
+                      <Copy>{details}</Copy>
+
+                      <Listen text={details} />
+                    </>
+                  )}
+
+                  {/* Official portal */}
+                  {!!sourceUrl && (
+                    <Button
+                      label={label("Official Source", "आधिकारिक पोर्टल")}
+                      onPress={() => openLink(sourceUrl)}
+                    />
+                  )}
+
+                  {/* Official PDF */}
+                  {!!notice.pdfUrl && (
+                    <Button
+                      secondary
+                      label={label("View PDF", "पीडीएफ देखें")}
+                      onPress={() => openLink(notice.pdfUrl!)}
+                    />
+                  )}
+
+                  {/* Voice playback */}
+                  <Listen text={`${title}. ${summary}`} />
+
+                  {/* Share */}
+                  <Button
+                    secondary
+                    label={label("Share Notice", "सूचना साझा करें")}
+                    onPress={() => handleShare(notice)}
+                  />
+                </Card>
+              );
+            })}
+          </>
+        );
+      }}
+    </ContentScreen>
+  );
+}

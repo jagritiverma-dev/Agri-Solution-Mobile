@@ -1,0 +1,104 @@
+Header & Screen Navigation
+​Title: Market Information (मंडी एवं बाजार भाव)
+​Subtitle: Official MSP, Live Mandi Rates & Government Input Prices
+​Section 1: Government Support Prices (MSP & State Bonus)
+​Display a card or table comparing the Central MSP against the Chhattisgarh state purchase rate:
+​Paddy (Dhan - Common):
+​Central MSP: ₹2,441 / quintal
+​State Support: Covered under Krishak Unnati Yojana at ₹3,100 / quintal (Central MSP + ₹659 / quintal State DBT bonus up to 21 quintals/acre)
+​Season: Kharif 2026–27
+​Paddy (Dhan - Grade A):
+​Central MSP: ₹2,461 / quintal
+​State Support: ₹3,100 / quintal under Krishak Unnati Yojana
+​Season: Kharif 2026–27
+​Maize (Makka):
+​Central MSP: ₹2,410 / quintal
+​Season: Kharif 2026–27
+​Arhar / Tur:
+​Central MSP: ₹8,450 / quintal
+​Season: Kharif 2026–27
+​Wheat (Gehu - FAQ):
+​Central MSP: ₹2,585 / quintal (Rabi 2026–27) | ₹2,610 / quintal (Rabi 2027–28)
+​Gram (Chana):
+​Central MSP: ₹5,875 / quintal (Rabi 2026–27) | ₹5,958 / quintal (Rabi 2027–28)
+​Section 2: Daily Mandi Rates (APMC Arrivals)
+​Include a top filter bar with two dropdowns/selectors: District (Raipur, Durg, Bilaspur) and Crop (All, Paddy, Maize, Chana, Arhar, Linseed). Render each record inside a card displaying:
+​Raipur – Pandri / Tulsi Mandi:
+​Crop: Maize (Yellow/Local)
+​Modal Price: ₹2,100 / quintal (Min: ₹2,100 | Max: ₹2,100)
+​Reported: 24 Oct 2026 | Source: Agmarknet / CSAMB
+​Raipur – Arang Mandi:
+​Crop: Paddy (Common / 1001)
+​Modal Price: ₹2,360 / quintal (Min: ₹2,320 | Max: ₹2,420)
+​Reported: 28 Oct 2026 | Source: Agmarknet
+​Durg – Durg APMC:
+​Crop: Bengal Gram (Chana Whole)
+​Modal Price: ₹3,000 / quintal (Min: ₹3,000 | Max: ₹3,000)
+​Reported: 26 Oct 2026 | Source: Agmarknet
+​Bilaspur – Tifra Mandi:
+​Crop: Arhar (Tur Whole - Medium)
+​Modal Price: ₹4,100 / quintal (Min: ₹4,100 | Max: ₹4,300)
+​Reported: 27 Oct 2026 | Source: Mandi Bhav / CSAMB
+​Bilaspur – Tifra Mandi:
+​Crop: Paddy (Common - D.B.)
+​Modal Price: ₹1,900 / quintal (Min: ₹1,900 | Max: ₹1,900)
+​Reported: 29 Oct 2026 | Source: Agmarknet
+​Durg – Durg APMC:
+​Crop: Linseed (Alsi)
+​Modal Price: ₹4,300 / quintal (Min: ₹4,300 | Max: ₹4,300)
+​Reported: 28 Oct 2026 | Source: Directorate of Agri Marketing
+​Section 3: Regulated Agricultural Input Prices
+​Provide a list or grid showing government-notified statutory ceiling prices:
+​Neem Coated Urea (46% N):
+​Size: 45 kg bag
+​Statutory Price: ₹242.00 (Ex-factory) / MRP ₹266.50
+​Regulatory Source: Department of Fertilizers (Fertilizer Movement Control Order)
+​Di-Ammonium Phosphate (DAP - 18:46:0):
+​Size: 50 kg bag
+​Subsidized Ceiling: ₹1,350.00
+​Regulatory Source: NBS Scheme Notification
+​MOP (Muriate of Potash - 60% K₂O):
+​Size: 50 kg bag
+​Regulated MRP Range: ₹1,650.00 – ₹1,700.00
+​NPK Complex (12:32:16):
+​Size: 50 kg bag
+​Regulated Ceiling: ₹1,470.00
+​Certified Paddy Seeds (Karma Mahsuri, Rajeshwari, Indira Aerobic):
+​Size: 30 kg bag
+​Notified Price: ₹1,050.00 – ₹1,140.00 (Subsidized distribution via PACS at ₹25–₹28 / kg)
+​Section 4: Authorized Dealers & Support Centers
+​Render contact cards for agricultural centers and authorized input vendors:
+​MARKFED Input Depot – Raipur:
+​Category: Fertilizers & Certified Seeds
+​Location: Near Mandi Gate, Pandri, Raipur – 492004
+​Phone: 0771-4034800 / 0771-2583850
+​Hours: Mon–Sat: 10:00 AM – 5:30 PM
+​Kisan Beej Evam Khad Bhandar – Durg:
+​Category: Seeds, Fertilizers & Pesticides
+​Location: Shop 14, Ganj Mandi Complex, Station Road, Durg – 491001
+​Phone: +91 94252 38112
+​Licence No: DRG/AGR/SEED/2019/4412
+​Annapurna Krishi Kendra – Bilaspur:
+​Category: Agrochemicals & Knapsack Sprayers
+​Location: Tifra Krishi Upaj Mandi Premises, Bilaspur – 495001
+​Phone: +91 98271 65420
+​Seva Sahkari Samiti (PACS Procurement Centre) – Abhanpur, Raipur:
+​Type: Paddy Procurement Centre (MARKFED Centre Code: 110402)
+​Operating Window: Kharif Marketing Season (Nov 1 to Jan 31)
+​Requirement: Registration on Kisan Panjiyan Portal, B-1/P-II parcha verification, and token via "Token Tunhar Haath"
+​ICAR-Krishi Vigyan Kendra (KVK) & Soil Testing Lab – Durg:
+​Location: IGKV Campus, Anjora, Durg – 491001
+​Contact: 0788-2623410
+​Services: Free 12-parameter soil testing, foundation seeds, and crop diagnostic clinic
+​Section 5: Realization Calculator & Price Alert
+​Interactive Calculator Inputs:
+​Produce Quantity (Quintals)
+​Expected Selling Rate (₹ / Quintal)
+​Transport Cost to Mandi (₹)
+​Handling / Labour / Mandi Deductions (₹)
+​Calculated Output: Net Realization = (Quantity × Rate) − (Transport Cost + Deductions)
+​MSP Comparison Widget: Show the difference in net earnings between selling at the Mandi vs. the state procurement rate of ₹3,100 / quintal.
+​Price Alert Toggle:
+​A modal or button labeled "Set Mandi Price Alert".
+​Fields: Select Crop, Select Mandi, Target Price (₹).
+​Informational footnote: "Price alerts are checked against daily APMC closing auctions (4:00 PM – 7:30 PM) and dispatched via push notifications."
